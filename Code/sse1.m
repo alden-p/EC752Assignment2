@@ -1,4 +1,4 @@
-function SSE = sse(xi)
+function SSE = sse1(xi)
 %xi: The values of parameters
 
 % ===== Fixed Parameters =====
@@ -19,9 +19,9 @@ LogPostWage18_true=4.0061;
 dDdP_true = 0.16;
 dWdP_true = -0.0013;
 
-Moments_true = [D12_true, D18_true, B12_true, B18_true, ...
-    LogPostWage12_true, LogPostWage18_true, dDdP_true, dWdP_true]';
-
+% Moments_true = [D12_true, D18_true, B12_true, B18_true, ...
+%     LogPostWage12_true, LogPostWage18_true, dDdP_true, dWdP_true]';
+ Moments_true = [D12_true, dDdP_true]';
 
 
 [s1,logphi1,haz1,logw1,surv1,D12] = solveModel(xi,b1);
@@ -42,9 +42,9 @@ dWdP = (LogPostWage18 - LogPostWage12)/(18-12);
 B12=sum(surv1(1:12));
 B18=sum(surv2(1:18));
 
-Moments_hat = [D12, D18, B12, B18, ...
-    LogPostWage12, LogPostWage18, dDdP, dWdP]';
-
+% Moments_hat = [D12, D18, B12, B18, ...
+%     LogPostWage12, LogPostWage18, dDdP, dWdP]';
+Moments_hat = [D12, dDdP]';
 SSE = (Moments_hat - Moments_true)'*(Moments_hat - Moments_true);
 
 
